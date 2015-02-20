@@ -1,7 +1,7 @@
 // scripts.js
 // JS Functions
 // find template and compile it
-var templateSource = document.getElementById('results-template').innerHTML,
+var templateSource = document.getElementById('artist-results-template').innerHTML,
     template = Handlebars.compile(templateSource),
     resultsPlaceholder = document.getElementById('results'),
     playingCssClass = 'playing',
@@ -24,6 +24,20 @@ var searchAlbums = function (query) {
             type: 'album'
         },
         success: function (response) {
+            resultsPlaceholder.innerHTML = template(response);
+        }
+    });
+};
+
+var searchArtists = function (query) {
+    $.ajax({
+        url: 'https://api.spotify.com/v1/search',
+        data: {
+            q: query,
+            type: 'artist'
+        },
+        success: function (response) {
+          console.log(response);
             resultsPlaceholder.innerHTML = template(response);
         }
     });
@@ -55,5 +69,5 @@ results.addEventListener('click', function (e) {
 
 document.getElementById('search-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    searchAlbums(document.getElementById('query').value);
+    searchArtists(document.getElementById('query').value);
 }, false);

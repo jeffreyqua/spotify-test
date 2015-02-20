@@ -12,13 +12,17 @@
   <form name="search" id="search-form">
     <label for="artist_search">Search</label>
     <input type="text" name="artist_search" placeholder="Type Artist Name Here" class="artist-search" id="query" />
-          <input type="submit" id="search" class="btn" value="Search" />
+    <input type="submit" id="search-submit" class="btn" value="Search" />
   </form>
   <div id="results"></div>
 
-<script id="results-template" type="text/x-handlebars-template">
-    {{#each albums.items}}
-    <div style="background-image:url({{images.0.url}})" data-album-id="{{id}}" class="cover"></div>
+<script id="artist-results-template" type="text/x-handlebars-template">
+  <h2>Artists</h2>
+    {{#each artists.items}}
+    <div class="artist_box">
+      <div style="background-image:url({{images.0.url}})" data-album-id="{{id}}" class="cover"></div>
+      <div class="name">{{name}}</div>
+    </div>
     {{/each}}
 </script>
 </body>

@@ -1,5 +1,7 @@
 /* CSS Styling */
-
+html,body {
+  margin: 0px;
+}
 body {
   background: #1c1c1f;
   color: white;
@@ -8,4 +10,43 @@ body {
 h1 {
   font-size: 40px;
   font-weight: 200;
+}
+#search-form #query {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border-width: 0px;
+  width: 200px;
+  height: 30px;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px;
+}
+.artist_box {
+  float: left;
+   display: inline-block;
+   margin: 10px;
+   width: 150px;
+
+}
+.artist_box .cover {
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    background-size: cover;
+}
+.artist_box .cover:hover {
+    cursor: pointer;
+}
+.artist_box .cover.playing {
+    border: 5px solid #e45343;
+}
+
+.artist_box .name {
+  height: 40px;
+  display: block;
+  background: #222326;
+  box-sizing: border-box;
+  padding: 5px;
+  font-size: 12px;
 }
