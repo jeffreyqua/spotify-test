@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spotify Frontend Test</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+
+<!-- Search page -->
+  <h1>Search for an artist</h1>
+  <form name="search" id="search-form">
+    <label for="artist_search">Search</label>
+    <input type="text" name="artist_search" placeholder="Type Artist Name Here" class="artist-search" id="query" />
+          <input type="submit" id="search" class="btn" value="Search" />
+  </form>
+  <div id="results"></div>
+
+<script id="results-template" type="text/x-handlebars-template">
+    {{#each albums.items}}
+    <div style="background-image:url({{images.0.url}})" data-album-id="{{id}}" class="cover"></div>
+    {{/each}}
+</script>
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+<script type="text/javascript" src="scripts.js"></script>
+
+</html>

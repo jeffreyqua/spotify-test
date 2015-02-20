@@ -1,0 +1,11 @@
+/* CSS Styling */
+
+body {
+  background: #1c1c1f;
+  color: white;
+  font-family: proxima_nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+h1 {
+  font-size: 40px;
+  font-weight: 200;
+}
