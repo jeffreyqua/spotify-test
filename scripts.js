@@ -3,7 +3,12 @@
 // find template and compile it
 var templateSource = document.getElementById('artist-results-template').innerHTML,
     template = Handlebars.compile(templateSource),
+    trackTemplateSource = document.getElementById('track-results-template').innerHTML,
+    trackTemplate = Handlebars.compile(trackTemplateSource),
+    loadingSource = document.getElementById('loading-template').innerHTML,
+    loadingTemplate = Handlebars.compile(loadingSource),
     resultsPlaceholder = document.getElementById('results'),
+    trackResults = document.getElementById('tracks'),
     playingCssClass = 'playing',
     audioObject = null;
 
@@ -30,6 +35,7 @@ var searchAlbums = function (query) {
 };
 
 var searchArtists = function (query) {
+  resultsPlaceholder.innerHTML = loadingTemplate();
     $.ajax({
         url: 'https://api.spotify.com/v1/search',
         data: {
@@ -43,29 +49,37 @@ var searchArtists = function (query) {
     });
 };
 
-results.addEventListener('click', function (e) {
-    var target = e.target;
-    if (target !== null && target.classList.contains('cover')) {
-        if (target.classList.contains(playingCssClass)) {
-            audioObject.pause();
-        } else {
-            if (audioObject) {
-                audioObject.pause();
-            }
-            fetchTracks(target.getAttribute('data-album-id'), function (data) {
-                audioObject = new Audio(data.tracks.items[0].preview_url);
-                audioObject.play();
-                target.classList.add(playingCssClass);
-                audioObject.addEventListener('ended', function () {
-                    target.classList.remove(playingCssClass);
-                });
-                audioObject.addEventListener('pause', function () {
-                    target.classList.remove(playingCssClass);
-                });
-            });
+var searchArtistsTracks = function (query) {
+    $.ajax({
+        url: 'https://api.spotify.com/v1/artists/'+query+'/top-tracks',
+        data: {
+            country: 'US'
+        },
+        success: function (response) {
+          console.log(response);
+            trackResults.innerHTML = trackTemplate(response);
+            // trackResults.className='';
+            $('#overlay').addClass('active');
+            $('#tracks').removeClass('hidden');
         }
-    }
+    });
+};
+
+document.getElementById('results').addEventListener('click', function (e) {
+  var target = e.target.parentNode;
+  if (target !== null && target.classList.contains('artist_box')) {
+    var artist_id= target.getAttribute('data-artist-id');
+    searchArtistsTracks(artist_id);
+  }
 });
+
+
+document.getElementById('overlay').addEventListener('click', function (e) {
+  // Hide overlay on click
+  $('#overlay').removeClass('active');
+  $('#tracks').addClass('hidden');
+});
+
 
 document.getElementById('search-form').addEventListener('submit', function (e) {
     e.preventDefault();

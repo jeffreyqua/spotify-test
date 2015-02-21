@@ -8,21 +8,40 @@
 <body>
 
 <!-- Search page -->
-  <h1>Search for an artist</h1>
-  <form name="search" id="search-form">
-    <label for="artist_search">Search</label>
-    <input type="text" name="artist_search" placeholder="Type Artist Name Here" class="artist-search" id="query" />
-    <input type="submit" id="search-submit" class="btn" value="Search" />
-  </form>
+  <div id="search">
+    <h1>Search for an artist</h1>
+    <form name="search" id="search-form">
+      <input type="text" name="artist_search" placeholder="Type Artist Name Here" class="artist-search" id="query" />
+      <input type="submit" id="search-submit" class="btn" value="Search" />
+    </form>
+  </div>
   <div id="results"></div>
+  <div id="overlay"></div>
+  <div id="tracks" class="hidden"></div>
 
+<script id="loading-template" type="text/x-handlebars-template">
+  <div class="loading">
+      <img src="images/ajax-loader.gif" alt="Loading" />
+    </div>
+</script>
 <script id="artist-results-template" type="text/x-handlebars-template">
-  <h2>Artists</h2>
+  <h2>Artist Results</h2>
     {{#each artists.items}}
-    <div class="artist_box">
+    <div class="artist_box" data-artist-id="{{id}}">
       <div style="background-image:url({{images.0.url}})" data-album-id="{{id}}" class="cover"></div>
       <div class="name">{{name}}</div>
     </div>
+    {{/each}}
+</script>
+<script id="track-results-template" type="text/x-handlebars-template">
+  <h2>Top Artist Tracks</h2>
+    {{#each tracks}}
+    <div class="track_box" track-id="{{id}}">
+      <div style="background-image:url({{album.images.0.url}})" class="album_cover"></div>
+      <div class="track_name">{{name}}</div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
     {{/each}}
 </script>
 </body>

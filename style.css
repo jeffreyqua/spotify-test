@@ -11,10 +11,18 @@ h1 {
   font-size: 40px;
   font-weight: 200;
 }
+
+h2 {
+  font-size: 24px;
+  font-weight: 200;
+}
+#search {
+  margin: 0px 10px;
+}
 #search-form #query {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   border-width: 0px;
   width: 200px;
   height: 30px;
@@ -22,6 +30,16 @@ h1 {
   font-size: 16px;
   padding: 10px;
 }
+
+#results {
+  margin: 0px 10px;
+}
+#results .loading {
+  width: 100%;
+  text-align: center;
+  margin: 50px auto;
+}
+
 .artist_box {
   float: left;
    display: inline-block;
@@ -49,4 +67,66 @@ h1 {
   box-sizing: border-box;
   padding: 5px;
   font-size: 12px;
+}
+
+#overlay {
+  z-index: 1;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  background: rgba(0,0,0,0.7);
+  position:fixed;
+  display: none;
+}
+
+#overlay.active {
+  display: block;
+  transition: all 1s;
+}
+
+#tracks {
+  z-index: 2;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: #2e2f33;
+  transition: all 1s;
+  box-sizing: border-box;
+  padding: 0px 20px;
+}
+
+#tracks.hidden {
+  transform: translateX(100%);
+}
+
+#tracks .track_box {
+  height: 50px;
+  display: block;
+  margin: 5px 0px;
+}
+
+#tracks .track_box .album_cover {
+  width: 50px;
+  height: 50px;
+  display: block;
+  float: left;
+  background-size: cover;
+}
+
+#tracks .track_box .track_name {
+  height: 50px;
+  font-weight: bold;
+  font-size: 12px;
+  box-sizing: border-box;
+  padding-left:10px;
+  display: block;
+  float: left;
+  line-height: 50px;
+  vertical-align: middle;
+}
+
+.clear {
+  clear: both;
 }
