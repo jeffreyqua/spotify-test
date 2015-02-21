@@ -1,6 +1,6 @@
 // scripts.js
 // JS Functions
-// find template and compile it
+
 var templateSource = document.getElementById('artist-results-template').innerHTML,
     template = Handlebars.compile(templateSource),
     trackTemplateSource = document.getElementById('track-results-template').innerHTML,
@@ -8,19 +8,9 @@ var templateSource = document.getElementById('artist-results-template').innerHTM
     loadingSource = document.getElementById('loading-template').innerHTML,
     loadingTemplate = Handlebars.compile(loadingSource),
     resultsPlaceholder = document.getElementById('results'),
-    trackResults = document.getElementById('tracks'),
-    playingCssClass = 'playing',
-    audioObject = null;
+    trackResults = document.getElementById('tracks');
 
-var fetchTracks = function (albumId, callback) {
-    $.ajax({
-        url: 'https://api.spotify.com/v1/albums/' + albumId,
-        success: function (response) {
-            callback(response);
-        }
-    });
-};
-
+// Example function code from referenced example code (readme)
 var searchAlbums = function (query) {
     $.ajax({
         url: 'https://api.spotify.com/v1/search',
@@ -34,6 +24,7 @@ var searchAlbums = function (query) {
     });
 };
 
+// Search Artist Name - Spotify API Call
 var searchArtists = function (query) {
   resultsPlaceholder.innerHTML = loadingTemplate();
     $.ajax({
@@ -49,6 +40,7 @@ var searchArtists = function (query) {
     });
 };
 
+// Search Artist Top Tracks - Spotify API Call
 var searchArtistsTracks = function (query) {
     $.ajax({
         url: 'https://api.spotify.com/v1/artists/'+query+'/top-tracks',
@@ -58,13 +50,14 @@ var searchArtistsTracks = function (query) {
         success: function (response) {
           console.log(response);
             trackResults.innerHTML = trackTemplate(response);
-            // trackResults.className='';
+            // Add overlay and show track window
             $('#overlay').addClass('active');
             $('#tracks').removeClass('hidden');
         }
     });
 };
 
+// Artist Link Trigger - opens up Top Tracks Panel
 document.getElementById('results').addEventListener('click', function (e) {
   var target = e.target.parentNode;
   if (target !== null && target.classList.contains('artist_box')) {
@@ -73,14 +66,14 @@ document.getElementById('results').addEventListener('click', function (e) {
   }
 });
 
-
+// Overlay Listener - Hides Top Tracks Panel
 document.getElementById('overlay').addEventListener('click', function (e) {
   // Hide overlay on click
   $('#overlay').removeClass('active');
   $('#tracks').addClass('hidden');
 });
 
-
+// Search button Submit
 document.getElementById('search-form').addEventListener('submit', function (e) {
     e.preventDefault();
     searchArtists(document.getElementById('query').value);

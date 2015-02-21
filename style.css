@@ -42,7 +42,6 @@ h2 {
 
 .artist_box {
   float: left;
-   display: inline-block;
    margin: 10px;
    width: 150px;
 
@@ -50,7 +49,6 @@ h2 {
 .artist_box .cover {
     width: 150px;
     height: 150px;
-    display: inline-block;
     background-size: cover;
 }
 .artist_box .cover:hover {
